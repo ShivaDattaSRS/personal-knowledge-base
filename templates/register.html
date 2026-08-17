@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}
+Register
+{% endblock %}
+
+{% block content %}
+
+<div class="auth-card">
+
+    <h1>Create Account</h1>
+
+    {% if request.query_params.get("error") %}
+
+        <div class="error">
+            {{ request.query_params.get("error") }}
+        </div>
+
+    {% endif %}
+
+    <form
+        method="post"
+        action="/register"
+    >
+
+        <label>
+            Username
+        </label>
+
+        <input
+            type="text"
+            name="username"
+            minlength="3"
+            required
+        >
+
+        <label>
+            Password
+        </label>
+
+        <input
+            type="password"
+            name="password"
+            minlength="8"
+            required
+        >
+
+        <button type="submit">
+            Register
+        </button>
+
+    </form>
+
+    <p>
+        Already have an account?
+        <a href="/login">
+            Login
+        </a>
+    </p>
+
+</div>
+
+{% endblock %}

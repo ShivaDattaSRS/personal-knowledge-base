@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}
+
+{% if note %}
+    Edit Note
+{% else %}
+    New Note
+{% endif %}
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="form-card">
+
+    <h1>
+
+        {% if note %}
+            Edit Note
+        {% else %}
+            Create Note
+        {% endif %}
+
+    </h1>
+
+    {% if request.query_params.get("error") %}
+
+        <div class="error">
+            {{ request.query_params.get("error") }}
+        </div>
+
+    {% endif %}
+
+
+    <form
+
+        method="post"
+
+        {% if note %}
+            action="/notes/{{ note.id }}/edit"
+        {% else %}
+            action="/notes/new"
+        {% endif %}
+
+    >
+
+        <label>
+            Title
+        </label>
+
+        <input
+            type="text"
+            name="title"
+            value="{{ note.title if note else '' }}"
+            required
+        >
+
+
+        <label>
+            Content
+        </label>
+
+        <textarea
+            name="content"
+            rows="12"
+            required
+        >{{ note.content if note else '' }}</textarea>
+
+
+        <button type="submit">
+
+            {% if note %}
+                Update Note
+            {% else %}
+                Create Note
+            {% endif %}
+
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

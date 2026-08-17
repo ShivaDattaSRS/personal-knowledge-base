@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        {% block title %}
+        Knowledge Base
+        {% endblock %}
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', path='style.css') }}"
+    >
+
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <a href="/dashboard" class="brand">
+            Knowledge Base
+        </a>
+
+        <div>
+
+            {% if user %}
+                <span>
+                    Hello {{ user.username }}
+                </span>
+
+                <form
+                    method="post"
+                    action="/logout"
+                    class="inline-form"
+                >
+                    <button type="submit">
+                        Logout
+                    </button>
+                </form>
+            {% endif %}
+
+        </div>
+
+    </nav>
+
+    <main class="container">
+
+        {% block content %}
+        {% endblock %}
+
+    </main>
+
+</body>
+
+</html>

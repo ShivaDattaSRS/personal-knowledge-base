@@ -1,0 +1,7 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+pwdlib[bcrypt]
+jinja2
+python-multipart
+python-dotenv
