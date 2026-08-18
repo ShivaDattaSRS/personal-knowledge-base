@@ -134,6 +134,26 @@ button,
     padding: 50px;
     border-radius: 10px;
 }
+.dashboard-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.delete-account-button {
+    padding: 7px 12px;
+    font-size: 12px;
+    border: 1px solid #dc3545;
+    border-radius: 6px;
+    background: transparent;
+    color: #dc3545;
+    cursor: pointer;
+}
+
+.delete-account-button:hover {
+    background: #dc3545;
+    color: white;
+}
 
 @media (max-width: 600px) {
 

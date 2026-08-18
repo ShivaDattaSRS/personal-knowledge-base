@@ -9,7 +9,6 @@ Dashboard
 <div class="dashboard-header">
 
     <div>
-
         <h1>
             My Notes
         </h1>
@@ -17,15 +16,31 @@ Dashboard
         <p>
             Your personal knowledge base.
         </p>
-
     </div>
 
-    <a
-        href="/notes/new"
-        class="button"
-    >
-        + New Note
-    </a>
+    <div class="dashboard-actions">
+
+        <form
+            method="post"
+            action="/delete-account"
+            onsubmit="return confirm('Are you sure you want to delete your account? This cannot be undone.');"
+        >
+            <button
+                type="submit"
+                class="delete-account-button"
+            >
+                Delete Account
+            </button>
+        </form>
+
+        <a
+            href="/notes/new"
+            class="button"
+        >
+            + New Note
+        </a>
+
+    </div>
 
 </div>
 
@@ -64,14 +79,12 @@ Dashboard
                 method="post"
                 action="/notes/{{ note.id }}/delete"
             >
-
                 <button
                     type="submit"
                     class="danger"
                 >
                     Delete
                 </button>
-
             </form>
 
         </div>
@@ -104,5 +117,8 @@ Dashboard
 </div>
 
 {% endif %}
+
+
+
 
 {% endblock %}

@@ -24,7 +24,7 @@ from auth import (
     verify_password,
 )
 from database import Base, engine, get_db
-from models import Note, User
+from models import Note, User,UserSession
 
 
 # Load .env file
@@ -511,6 +511,52 @@ def logout(
 
     response.delete_cookie(
         key=SESSION_COOKIE_NAME,
+    )
+
+    return response
+
+# =========================================================
+# DELETE USER
+#  =========================================================
+@app.post("/delete-account")
+def delete_account(
+    request: Request,
+    db: Session = Depends(get_db)
+):
+    # Find the currently logged-in user
+    user = get_current_user(
+        request,
+        db
+    )
+
+    # Delete all notes belonging to this user
+    db.query(Note).filter(
+        Note.user_id == user.id
+    ).delete(
+        synchronize_session=False
+    )
+
+    # Delete all sessions belonging to this user
+    db.query(UserSession).filter(
+        UserSession.user_id == user.id
+    ).delete(
+        synchronize_session=False
+    )
+
+    # Delete the user
+    db.delete(user)
+
+    # Save all changes
+    db.commit()
+
+    # Remove login cookie
+    response = RedirectResponse(
+        "/register",
+        status_code=303
+    )
+
+    response.delete_cookie(
+        key=SESSION_COOKIE_NAME
     )
 
     return response
